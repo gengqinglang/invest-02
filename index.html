@@ -24,29 +24,35 @@
             padding: 16px;
         }
 
-        /* 顶部状态栏 */
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 16px;
-            background: #000;
-            color: white;
-            font-size: 14px;
-            margin-bottom: 20px;
+        /* 返回按钮 */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
         }
 
-        .status-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .back-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 20px;
+            color: #666;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
-        .status-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .back-link:hover {
+            background: #e0e0e0;
+            color: #333;
+            transform: scale(1.05);
         }
+
 
          /* 汇总信息卡片 */
          .summary-cards {
@@ -306,18 +312,25 @@
             border-bottom: none;
         }
 
-        /* 移动端优化样式 */
-        @media (max-width: 768px) {
-            .container {
-                padding: 8px;
-                max-width: 100%;
-            }
+         /* 移动端优化样式 */
+         @media (max-width: 768px) {
+             .container {
+                 padding: 8px;
+                 max-width: 100%;
+             }
 
-            .status-bar {
-                padding: 6px 12px;
-                font-size: 12px;
-                margin-bottom: 12px;
-            }
+             .back-button {
+                 top: 15px;
+                 left: 15px;
+             }
+
+             .back-link {
+                 width: 36px;
+                 height: 36px;
+                 line-height: 36px;
+                 font-size: 18px;
+             }
+
 
             .summary-cards {
                 display: flex;
@@ -532,16 +545,24 @@
             }
         }
 
-        /* 超小屏幕优化 (iPhone SE等) */
-        @media (max-width: 375px) {
-            .container {
-                padding: 6px;
-            }
+         /* 超小屏幕优化 (iPhone SE等) */
+         @media (max-width: 375px) {
+             .container {
+                 padding: 6px;
+             }
 
-            .status-bar {
-                padding: 4px 8px;
-                font-size: 11px;
-            }
+             .back-button {
+                 top: 12px;
+                 left: 12px;
+             }
+
+             .back-link {
+                 width: 32px;
+                 height: 32px;
+                 line-height: 32px;
+                 font-size: 16px;
+             }
+
 
             .summary-cards {
                 gap: 4px;
@@ -651,20 +672,13 @@
     </style>
 </head>
 <body>
-    <!-- 顶部状态栏 -->
-    <div class="status-bar">
-        <div class="status-left">
-            <a href="https://gengqinglang.github.io/financial-tools-homepage/" style="color: white; text-decoration: none; cursor: pointer;">←</a>
-            <span id="currentTime">14:44</span>
-        </div>
-        <div class="status-right">
-            <span>📶</span>
-            <span>🔋 59%</span>
-            <span>⋯</span>
-        </div>
-    </div>
 
     <div class="container">
+        <!-- 返回按钮 -->
+        <div class="back-button">
+            <a href="https://gengqinglang.github.io/financial-tools-homepage/" class="back-link">←</a>
+        </div>
+        
         <!-- 标题 -->
          <h1 style="text-align: center; font-size: 28px; font-weight: bold; color: #2C3E50; margin-bottom: 24px;">模拟投资计算器</h1>
         
@@ -801,8 +815,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('投资收益计算器初始化...');
             
-            // 设置默认日期
-            updateCurrentTime();
             
             // 初始化事件监听器
             initEventListeners();
@@ -1393,19 +1405,6 @@
             }
         }
 
-        // 更新当前时间
-        function updateCurrentTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('zh-CN', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false
-            });
-            document.getElementById('currentTime').textContent = timeString;
-            
-            // 每分钟更新一次时间
-            setTimeout(() => updateCurrentTime(), 60000);
-        }
     </script>
 </body>
 </html>
